@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>投资学习导航站 | 一站式投资资源汇总</title>
-    <!-- 引入Tailwind CSS CDN，无需本地编译 -->
+    <!-- 引入Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入Font Awesome图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -61,74 +61,11 @@
         </div>
     </main>
 
-    <!-- 扩展操作指南（折叠面板） -->
-    <section class="container mx-auto px-4 py-8 bg-white rounded-lg card-shadow mb-8">
-        <div class="flex justify-between items-center cursor-pointer" onclick="toggleGuide()">
-            <h2 class="text-lg font-semibold text-neutral">📖 扩展操作指南（新增/修改分类/网址）</h2>
-            <i id="guide-icon" class="fa-solid fa-chevron-down text-primary"></i>
-        </div>
-        <div id="guide-content" class="mt-4 hidden">
-            <div class="space-y-4 text-gray-700">
-                <div>
-                    <h3 class="font-medium text-primary">步骤1：找到数据管理模块</h3>
-                    <p class="mt-1 text-sm">在本文件中找到 <code class="bg-gray-100 px-1 py-0.5 rounded">const investmentResources</code> 这个JavaScript对象，所有分类和网址都在这里管理。</p>
-                </div>
-                <div>
-                    <h3 class="font-medium text-primary">步骤2：新增分类（示例代码）</h3>
-                    <pre class="mt-1 bg-gray-100 p-3 rounded text-sm overflow-x-auto">
-// 在investmentResources数组末尾添加新分类
-{
-    categoryName: "工具辅助类", // 新分类名称
-    categoryDesc: "提升投资效率的实用工具", // 分类描述
-    links: [ // 该分类下的网址列表
-        {
-            name: "Excel在线工具", // 网站名称
-            url: "https://www.exceljiqiao.com/", // 网站链接
-            desc: "提供投资数据处理的Excel技巧和模板" // 网站简介
-        },
-        {
-            name: "投资计算器",
-            url: "https://www.touzicalculator.com/",
-            desc: "复利、定投、收益率计算工具"
-        }
-    ]
-}</pre>
-                </div>
-                <div>
-                    <h3 class="font-medium text-primary">步骤3：新增网址（示例代码）</h3>
-                    <p class="mt-1 text-sm">在任意分类的 <code class="bg-gray-100 px-1 py-0.5 rounded">links</code> 数组中添加新对象：</p>
-                    <pre class="mt-1 bg-gray-100 p-3 rounded text-sm overflow-x-auto">
-// 比如在「资讯快讯类」的links里新增：
-{
-    name: "第一财经",
-    url: "https://www.yicai.com/",
-    desc: "综合财经资讯平台，覆盖宏观、产业、公司"
-}</pre>
-                </div>
-                <div>
-                    <h3 class="font-medium text-primary">步骤4：修改/删除网址</h3>
-                    <ul class="mt-1 text-sm list-disc list-inside space-y-1">
-                        <li>修改：直接编辑对应网址对象的 <code>name</code>/<code>url</code>/<code>desc</code> 字段即可。</li>
-                        <li>删除：删除对应网址的整个对象（包括{}）即可。</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-medium text-primary">步骤5：修改后重新部署到Netlify</h3>
-                    <ol class="mt-1 text-sm list-decimal list-inside space-y-1">
-                        <li>保存修改后的 <code>index.html</code> 文件。</li>
-                        <li>登录Netlify后台，找到你的网站项目。</li>
-                        <li>点击「Deploys」→「Trigger deploy」→「Deploy site」，等待部署完成即可。</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- 页脚 -->
     <footer class="bg-neutral text-white py-6">
         <div class="container mx-auto px-4 text-center text-sm">
             <p>投资学习导航站 | 仅供学习参考，不构成投资建议</p>
-            <p class="mt-2">部署于 Netlify | © 2026 投资学习资源汇总</p>
+            <p class="mt-2">© 2026 投资学习资源汇总</p>
         </div>
     </footer>
 
@@ -306,15 +243,6 @@
                 // 添加到容器
                 container.appendChild(categoryCard);
             });
-        }
-
-        // ========== 扩展指南折叠/展开函数 ==========
-        function toggleGuide() {
-            const content = document.getElementById('guide-content');
-            const icon = document.getElementById('guide-icon');
-            content.classList.toggle('hidden');
-            icon.classList.toggle('fa-chevron-down');
-            icon.classList.toggle('fa-chevron-up');
         }
 
         // ========== 页面加载完成后渲染 ==========
