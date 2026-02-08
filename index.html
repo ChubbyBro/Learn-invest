@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投资学习导航站 | 一站式投资资源汇总</title>
+    <!-- 引入Tailwind CSS CDN，无需本地编译 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        // 自定义Tailwind配置
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        neutral: '#1F2937',
+                        light: '#F9FAFB',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- 网站头部 -->
+    <header class="bg-white card-shadow sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-primary text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold text-neutral">投资学习导航站</h1>
+            </div>
+            <p class="text-sm text-gray-600 hidden md:block">一站式掌握投资核心资源</p>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- 分类容器（动态渲染） -->
+        <div id="category-container" class="grid grid-cols-1 gap-8">
+            <!-- 分类内容由JavaScript动态生成 -->
+        </div>
+    </main>
+
+    <!-- 扩展操作指南（折叠面板） -->
+    <section class="container mx-auto px-4 py-8 bg-white rounded-lg card-shadow mb-8">
+        <div class="flex justify-between items-center cursor-pointer" onclick="toggleGuide()">
+            <h2 class="text-lg font-semibold text-neutral">📖 扩展操作指南（新增/修改分类/网址）</h2>
+            <i id="guide-icon" class="fa-solid fa-chevron-down text-primary"></i>
+        </div>
+        <div id="guide-content" class="mt-4 hidden">
+            <div class="space-y-4 text-gray-700">
+                <div>
+                    <h3 class="font-medium text-primary">步骤1：找到数据管理模块</h3>
+                    <p class="mt-1 text-sm">在本文件中找到 <code class="bg-gray-100 px-1 py-0.5 rounded">const investmentResources</code> 这个JavaScript对象，所有分类和网址都在这里管理。</p>
+                </div>
+                <div>
+                    <h3 class="font-medium text-primary">步骤2：新增分类（示例代码）</h3>
+                    <pre class="mt-1 bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+// 在investmentResources数组末尾添加新分类
+{
+    categoryName: "工具辅助类", // 新分类名称
+    categoryDesc: "提升投资效率的实用工具", // 分类描述
+    links: [ // 该分类下的网址列表
+        {
+            name: "Excel在线工具", // 网站名称
+            url: "https://www.exceljiqiao.com/", // 网站链接
+            desc: "提供投资数据处理的Excel技巧和模板" // 网站简介
+        },
+        {
+            name: "投资计算器",
+            url: "https://www.touzicalculator.com/",
+            desc: "复利、定投、收益率计算工具"
+        }
+    ]
+}</pre>
+                </div>
+                <div>
+                    <h3 class="font-medium text-primary">步骤3：新增网址（示例代码）</h3>
+                    <p class="mt-1 text-sm">在任意分类的 <code class="bg-gray-100 px-1 py-0.5 rounded">links</code> 数组中添加新对象：</p>
+                    <pre class="mt-1 bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+// 比如在「资讯快讯类」的links里新增：
+{
+    name: "第一财经",
+    url: "https://www.yicai.com/",
+    desc: "综合财经资讯平台，覆盖宏观、产业、公司"
+}</pre>
+                </div>
+                <div>
+                    <h3 class="font-medium text-primary">步骤4：修改/删除网址</h3>
+                    <ul class="mt-1 text-sm list-disc list-inside space-y-1">
+                        <li>修改：直接编辑对应网址对象的 <code>name</code>/<code>url</code>/<code>desc</code> 字段即可。</li>
+                        <li>删除：删除对应网址的整个对象（包括{}）即可。</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-medium text-primary">步骤5：修改后重新部署到Netlify</h3>
+                    <ol class="mt-1 text-sm list-decimal list-inside space-y-1">
+                        <li>保存修改后的 <code>index.html</code> 文件。</li>
+                        <li>登录Netlify后台，找到你的网站项目。</li>
+                        <li>点击「Deploys」→「Trigger deploy」→「Deploy site」，等待部署完成即可。</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-neutral text-white py-6">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>投资学习导航站 | 仅供学习参考，不构成投资建议</p>
+            <p class="mt-2">部署于 Netlify | © 2026 投资学习资源汇总</p>
+        </div>
+    </footer>
+
+    <script>
+        // ========== 核心数据模块（所有分类/网址都在这里管理） ==========
+        const investmentResources = [
+            {
+                categoryName: "资讯快讯类",
+                categoryDesc: "实时掌握市场动向",
+                links: [
+                    {
+                        name: "财联社",
+                        url: "https://www.cls.cn/",
+                        desc: "以“快速、准确、权威”著称，提供7x24小时秒级快讯，是A股市场资讯与舆情决策的重要工具。"
+                    },
+                    {
+                        name: "金十数据",
+                        url: "https://www.jin10.com/",
+                        desc: "全球金融市场实时数据服务商，覆盖外汇、贵金属、大宗商品等，数据更新以秒计算，适合日内交易者。"
+                    },
+                    {
+                        name: "华尔街见闻",
+                        url: "https://wallstreetcn.com/",
+                        desc: "聚焦全球宏观与资本市场，擅长解读政策背后的投资机会，快讯响应迅速。"
+                    },
+                    {
+                        name: "新浪财经",
+                        url: "https://finance.sina.com.cn/",
+                        desc: "覆盖A股、港股、美股等40+市场实时行情，整合微博财经大V观点，社区与资讯联动。"
+                    }
+                ]
+            },
+            {
+                categoryName: "年报研报类",
+                categoryDesc: "深挖企业价值",
+                links: [
+                    {
+                        name: "巨潮资讯网",
+                        url: "http://www.cninfo.com.cn/",
+                        desc: "证监会指定的上市公司信息披露网站，可查询所有A股公司的财报、公告等权威资料。"
+                    },
+                    {
+                        name: "东方财富研报中心",
+                        url: "https://data.eastmoney.com/report/",
+                        desc: "国内最大的免费研报平台之一，每日更新数百份券商最新研究报告。"
+                    },
+                    {
+                        name: "慧博投研",
+                        url: "https://www.hibor.com.cn/",
+                        desc: "专业机构研报平台，收录大量未公开的买方内部报告，提供不同于卖方视角的投资逻辑。"
+                    },
+                    {
+                        name: "萝卜投研",
+                        url: "https://robo.datayes.com/",
+                        desc: "研报内容全、分类清晰，可免费查询个股财务数据、估值、盈利预期等重要数据。"
+                    }
+                ]
+            },
+            {
+                categoryName: "行业数据与宏观类",
+                categoryDesc: "把握经济周期",
+                links: [
+                    {
+                        name: "国家统计局",
+                        url: "http://www.stats.gov.cn/",
+                        desc: "中国经济数据官方发布渠道，GDP、CPI、PMI等核心指标的一手来源。"
+                    },
+                    {
+                        name: "中国人民银行",
+                        url: "http://www.pbc.gov.cn/",
+                        desc: "中国货币政策权威信息源，发布存款准备金率、LPR利率、社融数据等。"
+                    },
+                    {
+                        name: "Wind（万得）金融终端",
+                        url: "https://www.wind.com.cn/",
+                        desc: "机构级数据平台，覆盖股票、债券、基金、宏观等全维度数据，是专业分析和研究的黄金标准。"
+                    },
+                    {
+                        name: "同花顺iFinD",
+                        url: "https://ifind.wind.com.cn/",
+                        desc: "万得的主要竞争对手，提供类似的金融数据终端服务，价格相对有优势。"
+                    }
+                ]
+            },
+            {
+                categoryName: "股票分析与行情类",
+                categoryDesc: "精准定位交易信号",
+                links: [
+                    {
+                        name: "同花顺",
+                        url: "https://www.10jqka.com.cn/",
+                        desc: "提供实时行情、智能选股（i问财）、技术分析图表等多种工具，支持自然语言筛选股票。"
+                    },
+                    {
+                        name: "东方财富Choice",
+                        url: "https://choice.eastmoney.com/",
+                        desc: "免费提供Level-2行情、DDE决策等高端功能，方便散户查看主力资金流向。"
+                    },
+                    {
+                        name: "雪球",
+                        url: "https://xueqiu.com/",
+                        desc: "投资者社交平台，可关注高手的实盘组合与投资逻辑，学习价值投资思路。"
+                    },
+                    {
+                        name: "TradingView",
+                        url: "https://www.tradingview.com/",
+                        desc: "全球最大的技术分析社区，图表功能强大，支持多市场图表绘制和交易策略分享。"
+                    }
+                ]
+            },
+            {
+                categoryName: "基金债券类",
+                categoryDesc: "稳健收益利器",
+                links: [
+                    {
+                        name: "天天基金网",
+                        url: "https://fund.eastmoney.com/",
+                        desc: "中国最大的基金交易平台之一，基金产品海量，数据全面，提供“基金诊断”等量化评估工具。"
+                    },
+                    {
+                        name: "晨星网",
+                        url: "https://www.morningstar.com/",
+                        desc: "全球基金评级权威，提供星级评价和定量分析，帮助筛选长期优胜基金。"
+                    },
+                    {
+                        name: "集思录",
+                        url: "https://www.jisilu.cn/",
+                        desc: "可转债投资必备社区，提供新债发行查询、溢价率警报、强赎风险监控等功能。"
+                    },
+                    {
+                        name: "且慢",
+                        url: "https://qieman.com/",
+                        desc: "以基金组合策略为核心，提供“红绿灯”指数估值参考，适合追求稳健和省心的长期投资者。"
+                    }
+                ]
+            }
+        ];
+
+        // ========== 渲染页面函数 ==========
+        function renderCategories() {
+            const container = document.getElementById('category-container');
+            container.innerHTML = ''; // 清空容器
+
+            // 遍历每个分类
+            investmentResources.forEach(category => {
+                // 创建分类卡片
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'bg-white rounded-lg card-shadow p-6';
+
+                // 分类标题和描述
+                const categoryHeader = `
+                    <div class="border-b border-gray-200 pb-4 mb-4">
+                        <h2 class="text-xl font-bold text-primary">${category.categoryName}</h2>
+                        <p class="text-gray-600 mt-1">${category.categoryDesc}</p>
+                    </div>
+                `;
+
+                // 生成链接列表
+                let linksHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
+                category.links.forEach(link => {
+                    linksHtml += `
+                        <div class="border border-gray-100 rounded-lg p-4 card-hover">
+                            <h3 class="font-medium text-neutral">${link.name}</h3>
+                            <p class="text-sm text-gray-600 mt-2 mb-3 line-clamp-2">${link.desc}</p>
+                            <a href="${link.url}" target="_blank" class="inline-flex items-center text-primary text-sm font-medium hover:text-primary/80">
+                                访问网站 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    `;
+                });
+                linksHtml += '</div>';
+
+                // 拼接分类卡片内容
+                categoryCard.innerHTML = categoryHeader + linksHtml;
+                // 添加到容器
+                container.appendChild(categoryCard);
+            });
+        }
+
+        // ========== 扩展指南折叠/展开函数 ==========
+        function toggleGuide() {
+            const content = document.getElementById('guide-content');
+            const icon = document.getElementById('guide-icon');
+            content.classList.toggle('hidden');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+
+        // ========== 页面加载完成后渲染 ==========
+        window.onload = function() {
+            renderCategories();
+        };
+    </script>
+</body>
+</html>
