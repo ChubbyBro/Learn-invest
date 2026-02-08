@@ -43,14 +43,14 @@
             /* 股票风格分割线 */
             .divider-stock {
                 border-bottom: 2px solid #0F4C81;
-                width: 60px;
+                width: 80px; /* 分割线稍宽，适配大标题 */
             }
             /* 二级分类标题样式 */
             .sub-category-title {
                 color: #0F4C81;
                 font-weight: 600;
-                font-size: 15px;
-                margin-bottom: 0.75rem;
+                font-size: 16px; /* 放大二级标题字体 */
+                margin-bottom: 1rem;
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
@@ -58,26 +58,29 @@
         }
     </style>
 </head>
-<body class="bg-light text-neutral min-h-screen">
-    <!-- 网站头部：扁平化、简约，贴合股票网站导航栏风格 -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <!-- 股票风格图标：趋势线 -->
-                <i class="fa-solid fa-line-chart text-primary text-xl"></i>
-                <h1 class="text-lg md:text-xl font-semibold">Chubby Bro's Investment Knowledge Base</h1>
+<body class="bg-light text-neutral min-h-screen text-base"> <!-- 全局字体默认放大 -->
+    <!-- 网站头部：主标题最大、居中，醒目 -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-10 py-4"> <!-- 增加内边距，适配大标题 -->
+        <div class="container mx-auto px-4 text-center"> <!-- 整体居中 -->
+            <div class="flex items-center justify-center gap-3 mb-1">
+                <!-- 股票风格图标：趋势线（放大图标） -->
+                <i class="fa-solid fa-line-chart text-primary text-2xl"></i>
+                <!-- 网站主标题：最大字号，加粗 -->
+                <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold">Chubby Bro's Investment Knowledge Base</h1>
             </div>
-            <p class="text-xs md:text-sm text-gray-600 hidden md:block">Financial News & Research Reports</p>
+            <p class="text-sm md:text-base text-gray-600">Financial News & Research Reports</p> <!-- 副标题放大 -->
         </div>
     </header>
 
-    <!-- 主要内容区：简约布局，扁平化卡片 -->
+    <!-- 主要内容区：调整各级标题和介绍文字大小 -->
     <main class="container mx-auto px-4 py-8">
-        <!-- 页面简介（简约提示） -->
-        <div class="mb-8 text-center">
-            <h2 class="text-2xl font-bold text-primary mb-2">看财经资讯&研报</h2>
-            <div class="divider-stock mx-auto mb-2"></div>
-            <p class="text-gray-600 text-sm">精选财经快讯、日历、财报、研报类优质资源，助力投资决策</p>
+        <!-- 页面简介（一级标题放大、居中） -->
+        <div class="mb-10 text-center">
+            <!-- 一级标题：字号次之，加粗醒目 -->
+            <h2 class="text-3xl md:text-4xl font-bold text-primary mb-3">看财经资讯&研报</h2>
+            <div class="divider-stock mx-auto mb-3"></div>
+            <!-- 介绍文字：稍放大 -->
+            <p class="text-gray-600 text-sm md:text-base max-w-2xl mx-auto">精选财经快讯、日历、财报、研报类优质资源，助力投资决策</p>
         </div>
 
         <!-- 分类容器（动态渲染） -->
@@ -86,9 +89,9 @@
         </div>
     </main>
 
-    <!-- 页脚：扁平化、简约，金融类网站风格 -->
+    <!-- 页脚：字体放大 -->
     <footer class="bg-primary text-white py-6 mt-10">
-        <div class="container mx-auto px-4 text-center text-sm">
+        <div class="container mx-auto px-4 text-center text-base"> <!-- 页脚文字放大 -->
             <p>Chubby Bro's Investment Knowledge Base © 2026 | For learning reference only</p>
             <p class="mt-2">Risk Warning: Investment involves risks, please proceed with caution</p>
         </div>
@@ -150,13 +153,13 @@
                 const categoryCard = document.createElement('div');
                 categoryCard.className = 'bg-white rounded-lg card-flat p-6 mb-6';
 
-                // 主分类标题
+                // 主分类标题（放大）
                 const categoryHeader = `
                     <div class="mb-6 flex items-center gap-3">
-                        <i class="fa-solid ${category.icon} text-primary text-xl"></i>
+                        <i class="fa-solid ${category.icon} text-primary text-2xl"></i> <!-- 图标放大 -->
                         <div>
-                            <h2 class="text-lg font-semibold text-neutral">${category.categoryName}</h2>
-                            <p class="text-xs text-gray-500">${category.categoryDesc}</p>
+                            <h2 class="text-xl md:text-2xl font-semibold text-neutral">${category.categoryName}</h2> <!-- 主分类标题放大 -->
+                            <p class="text-sm md:text-base text-gray-500">${category.categoryDesc}</p> <!-- 描述文字放大 -->
                         </div>
                     </div>
                 `;
@@ -168,20 +171,20 @@
                     subCategoriesHtml += `
                         <div class="sub-category-section">
                             <h3 class="sub-category-title">
-                                <i class="fa-solid ${subCat.subIcon}"></i>
+                                <i class="fa-solid ${subCat.subIcon} text-lg"></i> <!-- 二级分类图标放大 -->
                                 ${subCat.subName}
                             </h3>
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                     `;
 
-                    // 二级分类下的链接
+                    // 二级分类下的链接（字体放大）
                     subCat.links.forEach(link => {
                         subCategoriesHtml += `
                             <div class="bg-secondary rounded p-3 card-flat">
-                                <h4 class="font-medium text-primary text-sm">${link.name}</h4>
-                                <p class="text-xs text-gray-600 mt-1 mb-2 line-clamp-2">${link.desc}</p>
-                                <a href="${link.url}" target="_blank" class="text-xs text-primary hover:text-primary/80 inline-flex items-center">
-                                    访问 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
+                                <h4 class="font-medium text-primary text-base">${link.name}</h4> <!-- 链接名称放大 -->
+                                <p class="text-sm text-gray-600 mt-1 mb-2 line-clamp-2">${link.desc}</p> <!-- 链接描述放大 -->
+                                <a href="${link.url}" target="_blank" class="text-sm text-primary hover:text-primary/80 inline-flex items-center">
+                                    访问 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[12px]"></i> <!-- 小图标放大 -->
                                 </a>
                             </div>
                         `;
