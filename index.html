@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>投资学习导航站 | 一站式投资资源汇总</title>
+    <title>Chubby Bro's Investment Knowledge Base</title>
     <!-- 引入Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入Font Awesome图标 -->
+    <!-- 引入Font Awesome图标（金融/股票类图标） -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>
-        // 自定义Tailwind配置
+        // 自定义Tailwind配置（贴合股票网站的色彩体系）
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#165DFF',
-                        secondary: '#36CFC9',
-                        neutral: '#1F2937',
-                        light: '#F9FAFB',
+                        // 股票网站核心主色：深蓝（专业、稳重）
+                        primary: '#0F4C81',
+                        // 辅助色：浅蓝（扁平化点缀）
+                        secondary: '#E6F0FA',
+                        // 中性色：深灰（文字）、浅灰（背景）
+                        neutral: '#2D3748',
+                        light: '#F8FAFC',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        // 金融类网站常用无衬线字体，简约易读
+                        sans: ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
                     },
                 }
             }
@@ -28,218 +32,170 @@
     </script>
     <style type="text/tailwindcss">
         @layer utilities {
-            .card-shadow {
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            /* 扁平化卡片样式：无复杂阴影，仅轻微边框 */
+            .card-flat {
+                border: 1px solid #E2E8F0;
+                transition: border-color 0.2s ease;
             }
-            .card-hover {
-                transition: all 0.3s ease;
+            .card-flat:hover {
+                border-color: #0F4C81; /* hover仅变边框色，扁平化无位移 */
             }
-            .card-hover:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            /* 股票风格分割线 */
+            .divider-stock {
+                border-bottom: 2px solid #0F4C81;
+                width: 60px;
+            }
+            /* 二级分类标题样式 */
+            .sub-category-title {
+                color: #0F4C81;
+                font-weight: 600;
+                font-size: 15px;
+                margin-bottom: 0.75rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
             }
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- 网站头部 -->
-    <header class="bg-white card-shadow sticky top-0 z-10">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+<body class="bg-light text-neutral min-h-screen">
+    <!-- 网站头部：扁平化、简约，贴合股票网站导航栏风格 -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-chart-line text-primary text-2xl"></i>
-                <h1 class="text-xl md:text-2xl font-bold text-neutral">投资学习导航站</h1>
+                <!-- 股票风格图标：趋势线 -->
+                <i class="fa-solid fa-line-chart text-primary text-xl"></i>
+                <h1 class="text-lg md:text-xl font-semibold">Chubby Bro's Investment Knowledge Base</h1>
             </div>
-            <p class="text-sm text-gray-600 hidden md:block">一站式掌握投资核心资源</p>
+            <p class="text-xs md:text-sm text-gray-600 hidden md:block">Financial News & Research Reports</p>
         </div>
     </header>
 
-    <!-- 主要内容区 -->
+    <!-- 主要内容区：简约布局，扁平化卡片 -->
     <main class="container mx-auto px-4 py-8">
+        <!-- 页面简介（简约提示） -->
+        <div class="mb-8 text-center">
+            <h2 class="text-2xl font-bold text-primary mb-2">看财经资讯&研报</h2>
+            <div class="divider-stock mx-auto mb-2"></div>
+            <p class="text-gray-600 text-sm">精选财经快讯、日历、财报、研报类优质资源，助力投资决策</p>
+        </div>
+
         <!-- 分类容器（动态渲染） -->
-        <div id="category-container" class="grid grid-cols-1 gap-8">
+        <div id="category-container" class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6">
             <!-- 分类内容由JavaScript动态生成 -->
         </div>
     </main>
 
-    <!-- 页脚 -->
-    <footer class="bg-neutral text-white py-6">
+    <!-- 页脚：扁平化、简约，金融类网站风格 -->
+    <footer class="bg-primary text-white py-6 mt-10">
         <div class="container mx-auto px-4 text-center text-sm">
-            <p>投资学习导航站 | 仅供学习参考，不构成投资建议</p>
-            <p class="mt-2">© 2026 投资学习资源汇总</p>
+            <p>Chubby Bro's Investment Knowledge Base © 2026 | For learning reference only</p>
+            <p class="mt-2">Risk Warning: Investment involves risks, please proceed with caution</p>
         </div>
     </footer>
 
     <script>
-        // ========== 核心数据模块（所有分类/网址都在这里管理） ==========
+        // ========== 核心数据模块（仅保留指定分类和链接） ==========
         const investmentResources = [
             {
-                categoryName: "资讯快讯类",
-                categoryDesc: "实时掌握市场动向",
-                links: [
+                categoryName: "看财经资讯&研报",
+                categoryDesc: "一站式财经资讯与研报查询",
+                icon: "fa-newspaper",
+                // 二级分类列表
+                subCategories: [
                     {
-                        name: "财联社",
-                        url: "https://www.cls.cn/",
-                        desc: "以“快速、准确、权威”著称，提供7x24小时秒级快讯，是A股市场资讯与舆情决策的重要工具。"
+                        subName: "看财经快讯",
+                        subIcon: "fa-bolt-lightning",
+                        links: [
+                            { name: "财联社-电报", url: "https://www.cls.cn/telegraph", desc: "7x24小时秒级财经快讯，A股市场核心资讯来源" },
+                            { name: "金十数据-首页", url: "https://www.jin10.com/", desc: "全球金融市场实时数据，外汇/贵金属/大宗商品行情" }
+                        ]
                     },
                     {
-                        name: "金十数据",
-                        url: "https://www.jin10.com/",
-                        desc: "全球金融市场实时数据服务商，覆盖外汇、贵金属、大宗商品等，数据更新以秒计算，适合日内交易者。"
+                        subName: "看财经日历",
+                        subIcon: "fa-calendar-days",
+                        links: [
+                            { name: "财联社-投资日历", url: "https://www.cls.cn/investKalendar", desc: "A股/港股/美股重要财经事件、财报披露日历" },
+                            { name: "金十数据-日历", url: "https://rili.jin10.com/", desc: "全球宏观经济数据发布、央行政策等重要事件提醒" }
+                        ]
                     },
                     {
-                        name: "华尔街见闻",
-                        url: "https://wallstreetcn.com/",
-                        desc: "聚焦全球宏观与资本市场，擅长解读政策背后的投资机会，快讯响应迅速。"
+                        subName: "看美股公司财报",
+                        subIcon: "fa-file-invoice-dollar",
+                        links: [
+                            { name: "华尔街见闻-财经资讯", url: "https://wallstreetcn.com/", desc: "美股上市公司财报解读，宏观经济与资本市场分析" }
+                        ]
                     },
                     {
-                        name: "新浪财经",
-                        url: "https://finance.sina.com.cn/",
-                        desc: "覆盖A股、港股、美股等40+市场实时行情，整合微博财经大V观点，社区与资讯联动。"
-                    }
-                ]
-            },
-            {
-                categoryName: "年报研报类",
-                categoryDesc: "深挖企业价值",
-                links: [
-                    {
-                        name: "巨潮资讯网",
-                        url: "http://www.cninfo.com.cn/",
-                        desc: "证监会指定的上市公司信息披露网站，可查询所有A股公司的财报、公告等权威资料。"
-                    },
-                    {
-                        name: "东方财富研报中心",
-                        url: "https://data.eastmoney.com/report/",
-                        desc: "国内最大的免费研报平台之一，每日更新数百份券商最新研究报告。"
-                    },
-                    {
-                        name: "慧博投研",
-                        url: "https://www.hibor.com.cn/",
-                        desc: "专业机构研报平台，收录大量未公开的买方内部报告，提供不同于卖方视角的投资逻辑。"
-                    },
-                    {
-                        name: "萝卜投研",
-                        url: "https://robo.datayes.com/",
-                        desc: "研报内容全、分类清晰，可免费查询个股财务数据、估值、盈利预期等重要数据。"
-                    }
-                ]
-            },
-            {
-                categoryName: "行业数据与宏观类",
-                categoryDesc: "把握经济周期",
-                links: [
-                    {
-                        name: "国家统计局",
-                        url: "http://www.stats.gov.cn/",
-                        desc: "中国经济数据官方发布渠道，GDP、CPI、PMI等核心指标的一手来源。"
-                    },
-                    {
-                        name: "中国人民银行",
-                        url: "http://www.pbc.gov.cn/",
-                        desc: "中国货币政策权威信息源，发布存款准备金率、LPR利率、社融数据等。"
-                    },
-                    {
-                        name: "Wind（万得）金融终端",
-                        url: "https://www.wind.com.cn/",
-                        desc: "机构级数据平台，覆盖股票、债券、基金、宏观等全维度数据，是专业分析和研究的黄金标准。"
-                    },
-                    {
-                        name: "同花顺iFinD",
-                        url: "https://ifind.wind.com.cn/",
-                        desc: "万得的主要竞争对手，提供类似的金融数据终端服务，价格相对有优势。"
-                    }
-                ]
-            },
-            {
-                categoryName: "股票分析与行情类",
-                categoryDesc: "精准定位交易信号",
-                links: [
-                    {
-                        name: "同花顺",
-                        url: "https://www.10jqka.com.cn/",
-                        desc: "提供实时行情、智能选股（i问财）、技术分析图表等多种工具，支持自然语言筛选股票。"
-                    },
-                    {
-                        name: "东方财富Choice",
-                        url: "https://choice.eastmoney.com/",
-                        desc: "免费提供Level-2行情、DDE决策等高端功能，方便散户查看主力资金流向。"
-                    },
-                    {
-                        name: "雪球",
-                        url: "https://xueqiu.com/",
-                        desc: "投资者社交平台，可关注高手的实盘组合与投资逻辑，学习价值投资思路。"
-                    },
-                    {
-                        name: "TradingView",
-                        url: "https://www.tradingview.com/",
-                        desc: "全球最大的技术分析社区，图表功能强大，支持多市场图表绘制和交易策略分享。"
-                    }
-                ]
-            },
-            {
-                categoryName: "基金债券类",
-                categoryDesc: "稳健收益利器",
-                links: [
-                    {
-                        name: "天天基金网",
-                        url: "https://fund.eastmoney.com/",
-                        desc: "中国最大的基金交易平台之一，基金产品海量，数据全面，提供“基金诊断”等量化评估工具。"
-                    },
-                    {
-                        name: "晨星网",
-                        url: "https://www.morningstar.com/",
-                        desc: "全球基金评级权威，提供星级评价和定量分析，帮助筛选长期优胜基金。"
-                    },
-                    {
-                        name: "集思录",
-                        url: "https://www.jisilu.cn/",
-                        desc: "可转债投资必备社区，提供新债发行查询、溢价率警报、强赎风险监控等功能。"
-                    },
-                    {
-                        name: "且慢",
-                        url: "https://qieman.com/",
-                        desc: "以基金组合策略为核心，提供“红绿灯”指数估值参考，适合追求稳健和省心的长期投资者。"
+                        subName: "看研报",
+                        subIcon: "fa-magnifying-glass-chart",
+                        links: [
+                            { name: "东方财富-研报中心", url: "https://data.eastmoney.com/report/", desc: "免费券商研报汇总，每日更新数百份专业分析报告" },
+                            { name: "慧博投研", url: "https://www.hibor.com.cn/", desc: "机构级投研报告，买方视角深度分析" },
+                            { name: "萝卜投研", url: "https://robo.datayes.com/", desc: "个股财务数据/估值分析，研报智能检索" }
+                        ]
                     }
                 ]
             }
         ];
 
-        // ========== 渲染页面函数 ==========
+        // ========== 渲染页面函数（适配二级分类） ==========
         function renderCategories() {
             const container = document.getElementById('category-container');
             container.innerHTML = ''; // 清空容器
 
-            // 遍历每个分类
+            // 遍历主分类
             investmentResources.forEach(category => {
-                // 创建分类卡片
+                // 创建主分类卡片（扁平化样式）
                 const categoryCard = document.createElement('div');
-                categoryCard.className = 'bg-white rounded-lg card-shadow p-6';
+                categoryCard.className = 'bg-white rounded-lg card-flat p-6 mb-6';
 
-                // 分类标题和描述
+                // 主分类标题
                 const categoryHeader = `
-                    <div class="border-b border-gray-200 pb-4 mb-4">
-                        <h2 class="text-xl font-bold text-primary">${category.categoryName}</h2>
-                        <p class="text-gray-600 mt-1">${category.categoryDesc}</p>
+                    <div class="mb-6 flex items-center gap-3">
+                        <i class="fa-solid ${category.icon} text-primary text-xl"></i>
+                        <div>
+                            <h2 class="text-lg font-semibold text-neutral">${category.categoryName}</h2>
+                            <p class="text-xs text-gray-500">${category.categoryDesc}</p>
+                        </div>
                     </div>
                 `;
 
-                // 生成链接列表
-                let linksHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
-                category.links.forEach(link => {
-                    linksHtml += `
-                        <div class="border border-gray-100 rounded-lg p-4 card-hover">
-                            <h3 class="font-medium text-neutral">${link.name}</h3>
-                            <p class="text-sm text-gray-600 mt-2 mb-3 line-clamp-2">${link.desc}</p>
-                            <a href="${link.url}" target="_blank" class="inline-flex items-center text-primary text-sm font-medium hover:text-primary/80">
-                                访问网站 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
-                            </a>
+                // 生成二级分类列表
+                let subCategoriesHtml = '<div class="space-y-6">';
+                category.subCategories.forEach(subCat => {
+                    // 二级分类标题
+                    subCategoriesHtml += `
+                        <div class="sub-category-section">
+                            <h3 class="sub-category-title">
+                                <i class="fa-solid ${subCat.subIcon}"></i>
+                                ${subCat.subName}
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    `;
+
+                    // 二级分类下的链接
+                    subCat.links.forEach(link => {
+                        subCategoriesHtml += `
+                            <div class="bg-secondary rounded p-3 card-flat">
+                                <h4 class="font-medium text-primary text-sm">${link.name}</h4>
+                                <p class="text-xs text-gray-600 mt-1 mb-2 line-clamp-2">${link.desc}</p>
+                                <a href="${link.url}" target="_blank" class="text-xs text-primary hover:text-primary/80 inline-flex items-center">
+                                    访问 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
+                                </a>
+                            </div>
+                        `;
+                    });
+
+                    subCategoriesHtml += `
+                            </div>
                         </div>
                     `;
                 });
-                linksHtml += '</div>';
+                subCategoriesHtml += '</div>';
 
-                // 拼接分类卡片内容
-                categoryCard.innerHTML = categoryHeader + linksHtml;
+                // 拼接主分类卡片内容
+                categoryCard.innerHTML = categoryHeader + subCategoriesHtml;
                 // 添加到容器
                 container.appendChild(categoryCard);
             });
